@@ -1,4 +1,4 @@
-name = "cake-gltf-viewer"
+name = "gltf-viewer"
 compatibility_date = "2024-12-01"
 
 compatibility_flags = ["nodejs_compat"]
