@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import BabylonCanvas from "@/components/BabylonCanvas";
 import styles from "./page.module.css";
 import useModel from "@/hooks/useModel";
@@ -44,10 +44,11 @@ export default function Home() {
           setModel({ type: "glb", model: result });
         }
       };
-      // base64として読み込む
+      // glbをbase64として読み込む
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <div className={`${styles.app}`}>
       <div className={`${styles.appName} ${styles.panel}`}>

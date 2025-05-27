@@ -4,11 +4,9 @@ import useModel from "@/hooks/useModel";
 import {
   AppendSceneAsync,
   ArcRotateCamera,
-  Color3,
   Color4,
   Engine,
   HemisphericLight,
-  MeshBuilder,
   PointerEventTypes,
   Scene,
   Vector3,
@@ -51,8 +49,7 @@ const BabylonCanvas = ({ className }: props) => {
 
     scene.clearColor = new Color4(1, 1, 1, 1);
 
-    // MeshBuilder.CreateSphere("sphere", { diameter: 1 }, scene);
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const pointerObserver = scene.onPointerObservable.add((pointerInfo) => {
       switch (pointerInfo.type) {
         case PointerEventTypes.POINTERDOWN:
@@ -64,6 +61,7 @@ const BabylonCanvas = ({ className }: props) => {
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const focusCameraOnSceneMeshes = (
       camera: ArcRotateCamera,
       scene: Scene
