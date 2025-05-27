@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next-on-pages build",
-    "deploy": "wrangler pages deploy .vercel/output/static --project-name=cake-gltf-viewer",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -16,9 +15,7 @@
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "wrangler": "^4.16.1",
-    "zustand": "^5.0.5",
-    "@cloudflare/next-on-pages": "^1.0.0"
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
