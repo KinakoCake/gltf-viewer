@@ -48,21 +48,21 @@ const BabylonCanvas = ({ className }: props) => {
     camera.attachControl(canvas, true);
 
     new HemisphericLight("light", new Vector3(0, 1, 0), scene);
-    
-    scene.clearColor = new Color4(1,1,1,1);
+
+    scene.clearColor = new Color4(1, 1, 1, 1);
 
     // MeshBuilder.CreateSphere("sphere", { diameter: 1 }, scene);
 
     const pointerObserver = scene.onPointerObservable.add((pointerInfo) => {
-    switch (pointerInfo.type) {
-      case PointerEventTypes.POINTERDOWN:
-        setIsDragging(true);
-        break;
-      case PointerEventTypes.POINTERUP:
-        setIsDragging(false);
-        break;
-    }
-  });
+      switch (pointerInfo.type) {
+        case PointerEventTypes.POINTERDOWN:
+          setIsDragging(true);
+          break;
+        case PointerEventTypes.POINTERUP:
+          setIsDragging(false);
+          break;
+      }
+    });
 
     const focusCameraOnSceneMeshes = (
       camera: ArcRotateCamera,
@@ -106,10 +106,21 @@ const BabylonCanvas = ({ className }: props) => {
       // console.log(center, size * 2, meshes);
     };
 
+    // D&Dされたモデルを読み込みシーンに配置する
     const appendModel = async () => {
-      if (typeof model !== "string") return;
-      await AppendSceneAsync(model, scene);
-      focusCameraOnSceneMeshes(camera, scene);
+      
+      if (!model || typeof model.type !== "string" || typeof model.model !== "string") return;
+      
+      if (model.type === "glb") {
+        await AppendSceneAsync(model.model, scene);
+        // focusCameraOnSceneMeshes(camera, scene);
+        scene.createDefaultCameraOrLight(true, true, true);
+      } else if (model.type === "gltf") {
+        console.log(`data:${model.model}`);
+        await AppendSceneAsync(`data:${model.model}`, scene);
+        // focusCameraOnSceneMeshes(camera, scene);
+        scene.createDefaultCameraOrLight(true, true, true);
+      }
     };
 
     appendModel();

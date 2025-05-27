@@ -24,21 +24,34 @@ export default function Home() {
 
     const reader = new FileReader();
 
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result === "string") {
-        console.log(result);
-        setModel(result);
-      }
-    };
-
-    // glTFをbase64として読み込む
-    reader.readAsDataURL(file);
+    if (file.name.endsWith(".gltf")) {
+      
+      reader.onload = () => {
+        try {
+          const json = JSON.parse(reader.result as string);
+          const gltfString = JSON.stringify(json, null, 4);
+          setModel({ type: "gltf", model: gltfString });
+        } catch (err) {
+          console.error("JSON parse error");
+        }
+      };
+      // gltf形式として読み込む
+      reader.readAsText(file);
+    } else if (file.name.endsWith(".glb")) {
+      reader.onload = () => {
+        const result = reader.result;
+        if (typeof result === "string") {
+          setModel({ type: "glb", model: result });
+        }
+      };
+      // base64として読み込む
+      reader.readAsDataURL(file);
+    }
   };
   return (
     <div className={`${styles.app}`}>
       <div className={`${styles.appName} ${styles.panel}`}>
-        <h3>GLTF Viewer</h3>
+        <h3>glTF Viewer</h3>
       </div>
       <div className={`${styles.split}`}>
         <div
@@ -48,7 +61,7 @@ export default function Home() {
         >
           <h3>Input</h3>
           <p>
-            .gltfファイルもしくは.glbファイルをドラッグ&ドロップしてください
+            埋め込み形式（Data URI）の .gltf または .glb ファイルをここにドロップしてください
           </p>
           <div className={`${styles.dropArea}`}>
             <span>Drop here (.gltf or .glb)</span>

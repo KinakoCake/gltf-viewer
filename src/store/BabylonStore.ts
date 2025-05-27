@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
 type State = {
-    model: string | undefined | null;
+    model: { type: string | null, model: string | undefined | null };
 }
 
 type Action = {
-    setModel: (model: any) => void;
+    setModel: (model: State["model"]) => void;
 }
 
 export const useModelStore = create<State & Action>((set) => ({
-    model: null,
+    model: { type: null, model: null },
     setModel: (model) => set(() => ({ model: model })),
 }))
