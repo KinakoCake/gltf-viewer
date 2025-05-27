@@ -4,6 +4,8 @@ import useModel from "@/hooks/useModel";
 import {
   AppendSceneAsync,
   ArcRotateCamera,
+  Color3,
+  Color4,
   Engine,
   HemisphericLight,
   MeshBuilder,
@@ -46,6 +48,8 @@ const BabylonCanvas = ({ className }: props) => {
     camera.attachControl(canvas, true);
 
     new HemisphericLight("light", new Vector3(0, 1, 0), scene);
+    
+    scene.clearColor = new Color4(1,1,1,1);
 
     // MeshBuilder.CreateSphere("sphere", { diameter: 1 }, scene);
 
