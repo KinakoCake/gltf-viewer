@@ -25,14 +25,13 @@ export default function Home() {
     const reader = new FileReader();
 
     if (file.name.endsWith(".gltf")) {
-      
       reader.onload = () => {
         try {
           const json = JSON.parse(reader.result as string);
           const gltfString = JSON.stringify(json, null, 4);
           setModel({ type: "gltf", model: gltfString });
         } catch (err) {
-          console.error("JSON parse error");
+          console.error("JSON parse error:", err);
         }
       };
       // gltf形式として読み込む
@@ -62,7 +61,8 @@ export default function Home() {
         >
           <h3>Input</h3>
           <p>
-            埋め込み形式（Data URI）の .gltf または .glb ファイルをここにドロップしてください
+            埋め込み形式（Data URI）の .gltf または .glb
+            ファイルをここにドロップしてください
           </p>
           <div className={`${styles.dropArea}`}>
             <span>Drop here (.gltf or .glb)</span>
