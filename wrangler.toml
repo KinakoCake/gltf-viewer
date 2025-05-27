@@ -1,0 +1,9 @@
+name = "cake-gltf-viewer"
+compatibility_date = "2024-12-01"
+
+# node.js 互換モードを有効化
+compatibility_flags = ["nodejs_compat"]
+
+# Cloudflare Pages では基本的に `pages` デプロイだが、local dev 用に Worker の設定も
+main = "./.vercel/output/static/_worker.js"
+workers_dev = true
